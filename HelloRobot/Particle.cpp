@@ -3,20 +3,20 @@
  */
 
 #include "Particle.h"
-#include "Map.h"
+#include "map.h"
 #include "Robot.h"
 #include "Point.h"
 #include "config.h"
 
-Particle::Particle(Point p_pPoint,double p_dYaw,double p_dBel, Map* p_mMap)
-			:_particleMap(p_mMap),
+Particle::Particle(Point p_pPoint,double p_dYaw,double p_dBel)
+			://_particleMap(p_mMap),
 			 _particleLocation(p_pPoint),
 			 _particleYaw(p_dYaw),
 			 _particleBelief(p_dBel)
 {
 }
 
-void Particle::update(Point p_dDeltaLocation, double p_dDeltaYaw, Robot* robot)
+void Particle::update(Point p_dDeltaLocation, double p_dDeltaYaw)
 {
 	// Update The location according to delta
 	_particleLocation.x += p_dDeltaLocation.x;
@@ -27,10 +27,10 @@ void Particle::update(Point p_dDeltaLocation, double p_dDeltaYaw, Robot* robot)
 	double probOfPath = this->getParticleProbability(p_dDeltaLocation, p_dDeltaYaw);
 
 	// Robot observations posterior
-	double ProbOfObs = this->getParticleObservationsProbablity(robot);
+	//double ProbOfObs = this->getParticleObservationsProbablity(robot);
 
 	// Calculate new belief according to path, observations and previous belief
-	_particleBelief = SAFETY_FACTORY * _particleBelief * probOfPath * ProbOfObs;
+	_particleBelief = SAFETY_FACTORY * _particleBelief * probOfPath ;//* ProbOfObs;
 
 	// Check to see if particle exceeded the maximum probability
 	if (_particleBelief > 1)
@@ -64,7 +64,7 @@ double Particle::getParticleProbability(Point p_pLocation, double p_dDeltaYaw)
 		return 0.2;
 	}
 }
-
+/*
 double Particle::getParticleObservationsProbablity(Robot* robot)
 {
 	double trueNum = 0;
@@ -138,20 +138,20 @@ double Particle::getParticleObservationsProbablity(Robot* robot)
 	{
 		return trueNum / (trueNum + falseNum);
 	}
-}
+}*/
 
 Particle* Particle::CreateParticle()
 {
 	double newX = _particleLocation.x + (rand() % 21) / 100;
 	double newY = _particleLocation.y + (rand() % 21) / 100;
 	double newYaw = _particleYaw + (rand() % 61 - 30.0) * PI / 180.0;
-	return new Particle(Point(newX, newY), newYaw, _particleBelief, new Map(*_particleMap));
+	return new Particle(Point(newX, newY), newYaw, _particleBelief);//, new Map(*_particleMap));
 }
 
-Map* Particle::getMap()
+/*map* Particle::getMap()
 {
 	return this->_particleMap;
-}
+}*/
 
 double Particle::getBelief()
 {
@@ -160,6 +160,4 @@ double Particle::getBelief()
 
 Particle::~Particle()
 {
-	if (_particleMap != NULL)
-		delete _particleMap;
 }

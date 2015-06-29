@@ -8,26 +8,26 @@
 #include "Point.h"
 
 class Robot;
-class Map;
+class map;
 
 class Particle
 {
 public:
-	Particle(Point p_pPoint,double p_dYaw,double p_dBel, Map* p_mMap);
+	Particle(Point p_pPoint,double p_dYaw,double p_dBel);
 	~Particle();
 
 public:
-	void update(Point p_dDeltaLocation, double p_dDeltaYaw, Robot* robot);
+	void update(Point p_dDeltaLocation, double p_dDeltaYaw);
 	Particle* CreateParticle();
 	double getBelief();
-	Map* getMap();
+	//map* getMap();
 
 private:
 	double getParticleProbability(Point p_deltaLocation, double p_dDeltaYaw);
 	double getParticleObservationsProbablity(Robot* robot);
 
 private:
-	Map* _particleMap;
+	//map* _particleMap;
 	Point _particleLocation;
 	double _particleYaw;
 	double _particleBelief;

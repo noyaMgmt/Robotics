@@ -11,6 +11,7 @@
 #include "lodepng.h"
 #include "Robot.h"
 #include "map.h"
+#include "config.h"
 
 
 map::map() {
@@ -52,7 +53,7 @@ map::map() {
 						thisMap[j][i/4] = 0;
 				}
 			}
-
+			map2grid();
 			blowUpMap(2);
 			revertToVector();
 
@@ -74,6 +75,80 @@ map::map() {
 
 map::~map() {
 	// TODO Auto-generated destructor stub
+}
+
+void map::map2grid()
+{
+	M_RESOLUTION , G_RESOLUTION
+
+		float resolution = G_RESOLUTION / M_RESOLUTION;
+		int grid_rows = height * map_resolution / grid_resolution;
+		int grid_columns = width * map_resolution / grid_resolution;
+		char is_black_found;
+
+		thisGrid = new int*[round(height*resolution)];
+		for( int i=0; i < round(height*resolution); i++ ) thisGrid[i] = new int[width * resolution];
+
+
+		for (int c = 0; c < grid_rows; c++)
+		{
+			grid[c].resize(grid_columns);
+		}
+
+		for (y = 0; y < (grid_rows * resolution_relation); y += resolution_relation)
+
+			for (x = 0; x < (grid_columns * resolution_relation); x += resolution_relation) {
+				is_black_found = 0;
+				for (i = y ; (i < y + resolution_relation)&&(is_black_found == 0); i++){
+					for (j = x ; (j < x + resolution_relation)&&(is_black_found == 0); j++){
+						if (!(image[i * width * 4 + j * 4 + 0]
+								|| image[i * width * 4 + j * 4 + 1]
+								|| image[i * width * 4 + j * 4 + 2])){
+							is_black_found = 1;
+							(grid[y / resolution_relation][x / resolution_relation]).cell_color = 1;
+						}
+					}
+				}
+				if (is_black_found == 0){
+					(grid[y / resolution_relation][x / resolution_relation]).cell_color = 0;
+				}
+
+				(grid[y / resolution_relation][x / resolution_relation]).f_val = 0;
+				(grid[y / resolution_relation][x / resolution_relation]).g_val = 0;
+				(grid[y / resolution_relation][x / resolution_relation]).h_val = 0;
+				(grid[y / resolution_relation][x / resolution_relation]).parent.x_Coordinate = 0;
+				(grid[y / resolution_relation][x / resolution_relation]).parent.y_Coordinate = 0;
+			}
+
+		//_original_grid = grid;
+
+	int x= height;
+	thisGrid = new int*[x];
+
+
+
+	//create matritza map
+	for (int j = 0 ; j < height ; j++)
+	{
+		for(int i = 0; i < width * 4 ; i+=4)
+		{
+			if(image[i + j*width*4] == 0)
+				thisMap[j][i/4] = 1;
+			else
+				thisMap[j][i/4] = 0;
+		}
+	}
+
+}
+
+int** map::getMap()
+{
+	return thisMap;
+}
+
+int** map::getGrid()
+{
+	return thisGrid;
 }
 
 void map::blowUpMap(int Rsize)
@@ -103,7 +178,7 @@ void map::blowUpMap(int Rsize)
 									for(unsigned int i = 0; i < width ; i++)
 									{
 										if(thisMap[j][i]  == 2)
-											thisMap[j][i]  == 1;
+											thisMap[j][i]  = 1;
 									}
 								}
 
