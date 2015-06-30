@@ -22,6 +22,10 @@
 #define PI					     3.141592653
 #define PARTICLES_MAX            100
 #define PARTICLES_MIN			 30
+#define MOVE_SPEED				 1
+#define TURN_LEFT_SPEED			 0.3
+#define TURN_RIGHT_SPEED		0.3
+
 
 enum CellState
 {

@@ -1,21 +1,47 @@
+/*
+ * Behavior.cpp
+ *
+ *  Created on: Mar 25, 2014
+ *      Author: user
+ */
+
 #include "Behavior.h"
 
-Behavior::Behavior(Robot *robot) : _robot(robot){
+Behavior::Behavior(Robot* robot) {
+
+	_robot = robot;
+	_nextBehavior = NULL;
+sCount = 0;
+}
+
+void Behavior::addNextBehavior(Behavior* behavior){
+
+	Behavior** tempBeh = new Behavior*[_behaviorsCount + 1];
+
+	int i;
+	for (i = 0; i < _behaviorsCount; ++i) {
+		tempBeh[i] = _nextBehavior[i];
+	}
+
+	tempBeh[i] = behavior;
+	delete [] _nextBehavior;
+	_behaviorsCount++;
+
+	_nextBehavior = tempBeh;
+}
+
+Behavior* Behavior::selectNextBehavior(){
+
+	int i;
+	for(i=0; i<_behaviorsCount; i++)
+		if(_nextBehavior[i]->startCond())
+			return _nextBehavior[i];
+
+	return NULL;
 }
 
 Behavior::~Behavior() {
-}
 
-Behavior *Behavior::addNext(Behavior *beh) {
-    _nextBehaviors.push_back(beh);
-    return this;
-}
-
-Behavior *Behavior::selectNext() {
-    for (unsigned int i = 0; i < _nextBehaviors.size(); i++)
-    {
-        if (_nextBehaviors[i]->startCond())
-            return _nextBehaviors[i];
-    }
-    return NULL;
+	delete [] _nextBehavior;
+	delete _robot;
 }

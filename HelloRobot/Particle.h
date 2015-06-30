@@ -20,14 +20,13 @@ public:
 	void update(Point p_dDeltaLocation, double p_dDeltaYaw);
 	Particle* CreateParticle();
 	double getBelief();
-	//map* getMap();
+
 
 private:
 	double getParticleProbability(Point p_deltaLocation, double p_dDeltaYaw);
 	double getParticleObservationsProbablity(Robot* robot);
 
 private:
-	//map* _particleMap;
 	Point _particleLocation;
 	double _particleYaw;
 	double _particleBelief;

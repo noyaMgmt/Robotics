@@ -1,36 +1,43 @@
-/*
- * Robot.h
- *
- *  Created on: May 26, 2015
- *      Author: colman
- */
 
 #ifndef ROBOT_H_
 #define ROBOT_H_
 
 #include <libplayerc++/playerc++.h>
-#include <string>
-using namespace PlayerCc;
-using namespace std;
+#include "Defines.h"
+#include "ConfigurationManager.h"
+#define DISTANCE_TOLERANCE 0.5
 
+using namespace PlayerCc;
 class Robot {
-private:
-	PlayerClient _pc;
-	Position2dProxy _pp;
-	LaserProxy _lp;
-	float _lastX, _lastY, _lastYaw;
+
+	PlayerClient* _pc;
+	Position2dProxy* _pp;
+	LaserProxy* _lp;
 
 public:
-	Robot(string ip, int port);
+
+	double XPos;
+	double YPos;
+	double Yaw;
+	int _grid_rows;
+
+	Robot(char* ip, int port);
+	void Read();
+	void setSpeed(float xSpeed, float angularSpeed);
+    double getXpos();
+	double getYpos();
+	double getYaw();
+    LaserProxy* getLaser();
+    float getLaserDistance(int index);
+	bool isRightFree();
+	bool isLeftFree();
+	bool isForwardFree();
+	bool checkRange(int nStart, int nEnd);
+	double getLaserSpec();
+	int Robot::deg_to_index(double deg);
+
+	
 	virtual ~Robot();
-
-	void setSpeed(float linear, float angular);
-	float getX();
-	float getY();
-	float getYaw();
-
-	float* getLaserScan();
-	int deg_to_index(double deg);
 };
 
 #endif /* ROBOT_H_ */

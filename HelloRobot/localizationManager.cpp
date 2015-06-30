@@ -4,14 +4,14 @@
 
 #include "localizationManager.h"
 #include "Robot.h"
-#include "Map.h"
+#include "map.h"
 #include "Particle.h"
 #include "Point.h"
 #include "config.h"
 
 localizationManager::localizationManager(Robot* robot) : m_particles(), m_robot(robot), m_particles_num(1)
 {
-	m_particles.push_back(new Particle(Point(0,0),0,1,new Map()));
+	m_particles.push_back(new Particle(Point(0,0),0,1));
 }
 
 void localizationManager::Update(double deltaX, double deltaY, double deltaYaw)
@@ -22,13 +22,13 @@ void localizationManager::Update(double deltaX, double deltaY, double deltaYaw)
 	// If there are no particles
 	if (m_particles_num == 0)
 	{
-		this->AddParticle(new Particle(Point(0,0),0,1,new Map()));
+		this->AddParticle(new Particle(Point(0,0),0,1));
 	}
 
 	for (int currParticle = 0; currParticle < m_particles_num; ++currParticle)
 	{
 		// Update the particle according to robot's movement
-		m_particles[currParticle]->update(Point(deltaX, deltaY), deltaYaw, m_robot);
+		m_particles[currParticle]->update(Point(deltaX, deltaY), deltaYaw);
 
 		double particleBelief = m_particles[currParticle]->getBelief();
 
@@ -53,7 +53,7 @@ void localizationManager::Update(double deltaX, double deltaY, double deltaYaw)
 	}
 
 	// Print the map of the best particle
-	bestParticle->getMap()->printMap();
+//	bestParticle->getMap()->printMap();
 }
 
 bool localizationManager::AddParticle(Particle* par)

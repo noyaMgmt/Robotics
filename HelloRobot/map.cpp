@@ -77,6 +77,7 @@ map::~map() {
 	// TODO Auto-generated destructor stub
 }
 
+/*
 void map::map2grid()
 {
 	M_RESOLUTION , G_RESOLUTION
@@ -85,9 +86,10 @@ void map::map2grid()
 		int grid_rows = height * map_resolution / grid_resolution;
 		int grid_columns = width * map_resolution / grid_resolution;
 		char is_black_found;
-
-		thisGrid = new int*[round(height*resolution)];
-		for( int i=0; i < round(height*resolution); i++ ) thisGrid[i] = new int[width * resolution];
+		G_height = round(height*resolution);
+		G_width = round(width*resolution);
+		thisGrid = new int*[G_height];
+		for( int i=0; i < G_height; i++ ) thisGrid[i] = new int[G_width];
 
 
 		for (int c = 0; c < grid_rows; c++)
@@ -139,7 +141,7 @@ void map::map2grid()
 		}
 	}
 
-}
+}*/
 
 int** map::getMap()
 {
