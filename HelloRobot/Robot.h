@@ -3,8 +3,7 @@
 #define ROBOT_H_
 
 #include <libplayerc++/playerc++.h>
-#include "Defines.h"
-#include "ConfigurationManager.h"
+#include "config.h"
 #define DISTANCE_TOLERANCE 0.5
 
 using namespace PlayerCc;
@@ -34,7 +33,7 @@ public:
 	bool isForwardFree();
 	bool checkRange(int nStart, int nEnd);
 	double getLaserSpec();
-	int Robot::deg_to_index(double deg);
+	int deg_to_index(double deg);
 
 	
 	virtual ~Robot();

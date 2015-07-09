@@ -6,7 +6,7 @@
  */
 
 #include "Plan.h"
-#include "../behaviors/Behavior.h"
+#include "../Behaviors/Behavior.h"
 
 Plan::Plan(Robot* robot) {
 	 _robot = robot;

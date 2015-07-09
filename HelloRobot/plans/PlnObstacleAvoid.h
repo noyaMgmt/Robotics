@@ -9,7 +9,7 @@
 #define PLNOBSTACLEAVOID_H_
 
 #include "Plan.h"
-#include "../WaypointsManager.h"
+#include "../WayPointsManager.h"
 
 class PlnObstacleAvoid: public Plan {
 

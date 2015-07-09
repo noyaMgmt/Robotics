@@ -8,11 +8,11 @@
 #ifndef PLAN_H_
 #define PLAN_H_
 
-#include "../Defines.h"
+#include "../config.h"
 #include "../Robot.h"
-#include "../behaviors/GoForward.h"
-#include "../behaviors/TurnLeft.h"
-#include "../behaviors/TurnRight.h"
+#include "../Behaviors/GoForward.h"
+#include "../Behaviors/TurnLeft.h"
+#include "../Behaviors/TurnRight.h"
 
 class Plan {
 

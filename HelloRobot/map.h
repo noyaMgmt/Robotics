@@ -25,7 +25,7 @@ private:
 		void paintArea(int x, int y, int Rsize);
 
 		int **thisMap;
-		int **thisGrid;
+		//int **thisGrid;
 public:
 
 	map();
@@ -35,7 +35,7 @@ public:
 	void saveImage(const char* filename, std::vector<unsigned char>& image, unsigned width, unsigned height);
 	void blowUpMap(int Rsize);
 	int** getMap();
-	int** getGrid();
+	//int** getGrid();
 	//void map2grid();
 
 };

@@ -53,7 +53,7 @@ map::map() {
 						thisMap[j][i/4] = 0;
 				}
 			}
-			map2grid();
+			//map2grid();
 			blowUpMap(2);
 			revertToVector();
 
@@ -148,10 +148,12 @@ int** map::getMap()
 	return thisMap;
 }
 
+/*
 int** map::getGrid()
 {
 	return thisGrid;
 }
+*/
 
 void map::blowUpMap(int Rsize)
 {

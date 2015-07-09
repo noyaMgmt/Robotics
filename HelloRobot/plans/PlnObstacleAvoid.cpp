@@ -6,7 +6,7 @@
  */
 
 #include "PlnObstacleAvoid.h"
-#include "../behaviors/GoToWayPoint.h"
+#include "../Behaviors/GoToWayPoint.h"
 
 PlnObstacleAvoid::PlnObstacleAvoid(Robot* robot) : Plan(robot){
 
