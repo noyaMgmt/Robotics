@@ -25,7 +25,13 @@ void GoForward::action()
 	_robot->setSpeed(MOVE_SPEED, 0.0);
 }
 
-GoForward::GoForward(Robot* robot):Behavior(robot) {
+void GoForward::SetNewYaw(double yaw)
+{
+	//nothing
+}
+
+GoForward::GoForward(Robot* robot, double num):Behavior(robot) {
+	_robot = robot;
 }
 
 GoForward::~GoForward() {

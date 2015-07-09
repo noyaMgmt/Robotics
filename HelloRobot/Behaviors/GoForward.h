@@ -16,10 +16,11 @@ class GoForward: public Behavior {
 
 public:
 
-	GoForward(Robot* robot);
+	GoForward(Robot* robot, double num);
 	bool startCond();
 	bool stopCond();
 	void action();
+	void SetNewYaw(double yaw);
 	virtual ~GoForward();
 
 

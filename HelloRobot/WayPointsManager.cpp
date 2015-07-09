@@ -194,3 +194,23 @@ int WayPointsManager::getAngle(int x, int y)
 	// returns 0, so the robot won't change an angle.
 	return 0;
 }
+/*
+bool WayointsManager::isInWayPoint(double x,double y)
+{
+	double dx = nextWayPoint.x_Coordinate - x;
+	double dy = nextWayPoint.y_Coordinate - y;
+	double distance = sqrt(pow(dx, 2) + pow(dy, 2));
+
+	cout << "way point x"<< " " << nextWayPoint.x_Coordinate << " " << "x" << " " << x << endl;
+	cout << "way point y" << " " << nextWayPoint.y_Coordinate << " " << "y" << " "  << y << endl;
+	cout << "yaw" << nextWayPoint.yaw <<  endl;
+	cout << (distance) << endl;
+
+	// TODO
+	/*if (distance*_gridResolution <= TOLLERANCE)
+	{
+		return true;
+	}
+	return false;
+}*/
+

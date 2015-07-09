@@ -11,7 +11,7 @@ Behavior::Behavior(Robot* robot) {
 
 	_robot = robot;
 	_nextBehavior = NULL;
-sCount = 0;
+	_behaviorsCount = 0;
 }
 
 void Behavior::addNextBehavior(Behavior* behavior){

@@ -11,8 +11,23 @@
 
 using namespace std;
 
+//const int n=7; // horizontal size of the map
+//const int m=7; // vertical size size of the map
+//static int map[n][m] = {0,0,0,1,0,0,0,
+//                        0,0,0,0,0,0,0,
+//                        0,0,0,1,0,0,0,
+//                        1,1,1,1,1,1,0,
+//                        0,0,0,0,0,0,0,
+//                        0,0,0,1,1,1,1,
+//                        0,0,0,0,0,0,0};
+//static int closed_nodes_map[n][m]; // map of closed (tried-out) nodes
+//static int open_nodes_map[n][m]; // map of open (not-yet-tried) nodes
+//static int dir_map[n][m]; // map of directions
 const int dir=8; // number of possible directions to go at any position
-
+// if dir==4
+//static int dx[dir]={1, 0, -1, 0};
+//static int dy[dir]={0, 1, 0, -1};
+// if dir==8
 static int dx[dir]={1, 1, 0, -1, -1, -1, 0, 1};
 static int dy[dir]={0, 1, 1, 1, 0, -1, -1, -1};
 
@@ -229,6 +244,8 @@ vector<Coordinate> getWayOfRobot (const int & xStart, const int & yStart,
 	// Getting the directions of the robot.
 	string route = pathFind(xStart, yStart, xFinish, yFinish, n, m, map);
 
+	cout << route;
+
 	// Creating the way of the robot, and fill the first cell with
 	// the start position of the robot.
 	vector<Coordinate> wayOfRobot(route.length());
@@ -326,3 +343,98 @@ vector<Coordinate> getWayOfRobot (const int & xStart, const int & yStart,
 	return (wayOfRobot);
 }
 
+//int main()
+//{
+//
+//}
+////  srand(time(NULL));
+////
+////    // create empty map
+////    for(int y=0;y<m;y++)
+////    {
+////        for(int x=0;x<n;x++) map[x][y]=0;
+////    }
+////
+////    // fillout the map matrix with a '+' pattern
+////    for(int x=n/8;x<n*7/8;x++)
+////    {
+////        map[x][m/2]=1;
+////    }
+////    for(int y=m/8;y<m*7/8;y++)
+////    {
+////        map[n/2][y]=1;
+////    }
+////    
+////    // randomly select start and finish locations
+////    int xA, yA, xB, yB;
+////    switch(rand()%8)
+////    {
+////        case 0: xA=0;yA=0;xB=n-1;yB=m-1; break;
+////        case 1: xA=0;yA=m-1;xB=n-1;yB=0; break;
+////        case 2: xA=n/2-1;yA=m/2-1;xB=n/2+1;yB=m/2+1; break;
+////        case 3: xA=n/2-1;yA=m/2+1;xB=n/2+1;yB=m/2-1; break;
+////        case 4: xA=n/2-1;yA=0;xB=n/2+1;yB=m-1; break;
+////        case 5: xA=n/2+1;yA=m-1;xB=n/2-1;yB=0; break;
+////        case 6: xA=0;yA=m/2-1;xB=n-1;yB=m/2+1; break;
+////        case 7: xA=n-1;yA=m/2+1;xB=0;yB=m/2-1; break;
+////    }
+//
+//    int xA, yA, xB, yB;
+//    xA = 0;
+//    xB = 6;
+//    yA = 0;
+//    yB = 6;
+//    
+//    for (int i=0; i <= m; i++)
+//    {
+//        for (int j=0; j<= n; j++)
+//        {
+//            cout << " " + map[i][j];
+//        }
+//        cout << endl;
+//    }
+//    cout<<"Map Size (X,Y): "<<n<<","<<m<<endl;
+//    cout<<"Start: "<<xA<<","<<yA<<endl;
+//    cout<<"Finish: "<<xB<<","<<yB<<endl;
+//    // get the route
+//    string route=pathFind(xA, yA, xB, yB);
+//    if(route=="") cout<<"An empty route generated!"<<endl;
+//    cout<<"Route:"<<endl;
+//    cout<<route<<endl<<endl;
+//
+//    // follow the route on the map and display it 
+//    if(route.length()>0)
+//    {
+//        int j; char c;
+//        int x=xA;
+//        int y=yA;
+//        map[x][y]=2;
+//        for(int i=0;i<route.length();i++)
+//        {
+//            c =route.at(i);
+//            j=atoi(&c); 
+//            x=x+dx[j];
+//            y=y+dy[j];
+//            map[x][y]=3;
+//        }
+//        map[x][y]=4;
+//    
+//        // display the map with the route
+//        for(int y=0;y<m;y++)
+//        {
+//            for(int x=0;x<n;x++)
+//                if(map[x][y]==0)
+//                    cout<<".";
+//                else if(map[x][y]==1)
+//                    cout<<"O"; //obstacle
+//                else if(map[x][y]==2)
+//                    cout<<"S"; //start
+//                else if(map[x][y]==3)
+//                    cout<<"R"; //route
+//                else if(map[x][y]==4)
+//                    cout<<"F"; //finish
+//            cout<<endl;
+//        }
+//    }
+//    return(0);
+//}

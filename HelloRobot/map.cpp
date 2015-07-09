@@ -10,7 +10,6 @@
 #include <iostream>
 #include "lodepng.h"
 #include "Robot.h"
-#include "map.h"
 #include "config.h"
 
 
@@ -21,12 +20,12 @@ map::map() {
 	const char* filename = "hospital_section.png";
 			loadImage(filename);
 
-			cout << "width: " << width << ", height: " << height << endl;
-			for (int i = 0; i < 4; i++)
-			{
-				cout << (int)image[i] << " ";
-			}
-			cout << endl;
+			//cout << "width: " << width << ", height: " << height << endl;
+			//for (int i = 0; i < 4; i++)
+			//{
+			//	cout << (int)image[i] << " ";
+			//}
+			//cout << endl;
 
 			/*//  Change the first line to black
 			for (unsigned int i = 0; i < width * 4 * 4; i+=4)

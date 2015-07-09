@@ -8,11 +8,14 @@
 
 class TurnLeft: public Behavior {
 public:
-
+	
+	double _yaw;
+	
 	TurnLeft(Robot* robot);
 	bool startCond();
 	bool stopCond();
 	void action();
+	void SetNewYaw(double yaw);
 	virtual ~TurnLeft();
 };
 

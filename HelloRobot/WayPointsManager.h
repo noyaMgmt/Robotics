@@ -26,6 +26,7 @@ class WayPointsManager
 		// Methods.
 		WayPointsManager(vector<Coordinate> path);
 		void buildWayPoints();
+		
 
 	private:
 

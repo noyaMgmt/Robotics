@@ -19,7 +19,7 @@ class map {
 
 private:
 	std::vector<unsigned char> image; //the raw pixels
-		unsigned width, height;
+
 		unsigned G_width, G_height;
 		char* newfile;
 		void paintArea(int x, int y, int Rsize);
@@ -27,7 +27,7 @@ private:
 		int **thisMap;
 		//int **thisGrid;
 public:
-
+	unsigned width, height;
 	map();
 	virtual ~map();
 	void revertToVector();

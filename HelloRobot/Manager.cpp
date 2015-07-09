@@ -7,48 +7,37 @@
 
 #include "Manager.h"
 
-Manager::Manager(Robot* robot, Plan* pln, LocalizationManager* l_manager, ConfigurationManager* cm, WaypointsManager* wayPointsManager) {
+
+Manager::Manager(Robot* robot, Plan* pln, localizationManager* l_manager, ConfigurationManager* cm, WayPointsManager* wayPointsManager) {
 	_robot = robot;
 	_wayPointsManager = wayPointsManager;
 	_curr = pln->getStartPoint();
-	//_curr = new GoToWayPoint(&_robot, &_wayPointsManager);
 
-	_localization_manager = new LocalizationManager();
+	_localization_manager = new localizationManager(robot);
 	_cm = cm;
 }
 void Manager::run()
 {
-	wayPoint wpm;
-	set<wayPoint>::iterator it;
-
-
-	// Perform the first behavior of the plan
-	//_curr->action();
+	WayPoint wpm;
+	set<WayPoint>::iterator it;
+	
 	_robot->Read();
-
-	//_robot->setX(_cm->start_x);
-	//_robot->setY(_cm->start_y);
-	//_robot->setYaw(_cm->yaw);
 
 	// Gets the position of the robot
 	double x_Coordinate = _robot->getXpos();
 	double y_Coordinate = _robot->getYpos();
-	double dTeta = _robot->getYaw();
+	double dYaw = _robot->getYaw();
 
 	bool behavior_exsist = true;
+	
 	for (it = (_wayPointsManager->wayPoints).begin(); it != (_wayPointsManager->wayPoints).end(); ++it) {
 		wpm = *it;
 		_robot->Read();
-		//cout << " " << wpm.x_Coordinate << " " << wpm.y_Coordinate << " " << _robot->getXpos() << " " << _robot->getYpos() << endl;
 
 		_wayPointsManager->setNextWayPoint(wpm);
 
-		_curr->startCond();
-
-		while (true){
-
-			//cout << _robot->getYaw() << endl;
-
+		while (_curr != NULL){
+			
 			// If the current behavior can't run
 			if(_curr->stopCond())
 			{
@@ -56,38 +45,39 @@ void Manager::run()
 			    _curr = _curr->selectNextBehavior();
 
 			    _robot->Read();
-
-				if (_wayPointsManager->isInWayPoint(_robot->getXpos(),_robot->getYpos()))
-				{
-					break;
-				}
-
-				if (!_curr)
-					break;
+			}
+			
+			if (_wayPointsManager->isInWayPoint(_robot->getXpos(),_robot->getYpos()))
+			{
+				// handel way point
+				// get the new yaw we need to turn
+				_curr.SetNewYaw(_robot->getYaw() + it.rotate);
+				// set behavir to turn left
+				_curr = _curr->selectNextBehavior();
 			}
 
 			_curr->action();
 
-			_robot->Read();
-			//cout << wpm.x_Coordinate << " " << wpm.y_Coordinate << " " << wpm.yaw << endl;
+			_robot->Read();			
 
 			// Gets the position of the robot after read
 			double current_x_coordinate = _robot->getXpos();
 			double current_y_coordinate = _robot->getYpos();
-			double current_teta = _robot->getYaw();
+			double current_yaw = _robot->getYaw();
 
 			double deltaX = current_x_coordinate - x_Coordinate;
 			double deltaY = current_y_coordinate - y_Coordinate;
-			double deltaTeta = current_teta - dTeta;
+			double deltaYaw = current_yaw - dYaw;
 
-			_localization_manager->update(x_Coordinate, y_Coordinate, dTeta, deltaX, deltaY, deltaTeta, _robot->getLaser());
+			_localization_manager->update(deltaX, deltaY, deltaYaw);
 
 			x_Coordinate = current_x_coordinate;
 			y_Coordinate = current_y_coordinate;
-			dTeta = current_teta;
+			dYaw = current_yaw;
 		}
 	}
 }
+
 
 Manager::~Manager() {
 	// TODO Auto-generated destructor stub

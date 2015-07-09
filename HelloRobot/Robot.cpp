@@ -77,19 +77,22 @@ double Robot::getLaserSpec()
 }
 
 
-bool Robot::isRightFree() {
+bool Robot::isRightFree()
+{
     // TODO consts
-    return this->checkRange(0,100)
+    return this->checkRange(0,100);
 }
 
-bool Robot::isLeftFree() {
+bool Robot::isLeftFree()
+{
     // TODO consts
-    return this->checkRange(566,666)
+    return this->checkRange(566,666);
 }
 
-bool Robot::isForwardFree() {
+bool Robot::isForwardFree()
+{
     // TODO consts
-    return this->checkRange(150,450)
+    return this->checkRange(150,450);
 }
 
 
